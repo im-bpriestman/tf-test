@@ -7,5 +7,5 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Get Terraform version
-        run: cat .terraform-version | echo
+      #- name: Get Terraform version
+        run: cat .terraform-version
