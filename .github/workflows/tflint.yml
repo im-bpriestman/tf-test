@@ -22,10 +22,10 @@ jobs:
         uses: actions/checkout@v2
       - id: tfversion
         name: Get TF version
-        run: cat .terraform-version
+        run: echo "::set-output name=version::$(cat .terraform-version)"
       - id: tf_setup
         name: Set up Terraform
         env:
-          TFVERSION: ${{ steps.tfversion.outputs.output }}
+          TFVERSION: ${{ steps.tfversion.outputs.version }}
         run: |
           echo "Terraform version is ${TFVERSION}"
