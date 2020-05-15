@@ -13,7 +13,7 @@ jobs:
           tfenv install
       - name: verify tf version
         run: |
-          epxort PATH="/home/linuxbrew/.linuxbrew/bin/terraform:${PATH}"
+          export PATH="/home/linuxbrew/.linuxbrew/bin/terraform:${PATH}"
           terraform version
           echo $PATH
   get_tf_version:
