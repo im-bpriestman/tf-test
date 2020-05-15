@@ -11,8 +11,6 @@ jobs:
         run: |
           brew install tfenv
           tfenv install
-      - name: verify tf version
-        run: |
           export PATH="/home/linuxbrew/.linuxbrew/bin/terraform:${PATH}"
           terraform version
           echo $PATH
@@ -22,4 +20,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get TF version
-        run: cat .terraform-version
+        run: |
+          echo bananas
+          cat .terraform-version
