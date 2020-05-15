@@ -8,4 +8,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get Terraform
-        run: brew install tfenv && tfenv install && terraform version
+        run: brew install tfenv && tfenv install
+      - name: verify tf version
+        run: terraform version
