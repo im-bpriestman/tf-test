@@ -2,33 +2,49 @@ name: Terraform lint and validate
 on: [push]
 
 jobs:
-  get_tf_with_tfenv:
+  lint_and_validate_with_tfenv:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Get Terraform
         run: |
           brew install tfenv
           tfenv install
+
       - name: Lint and validate
         run: |
           # Make sure we find tfenv Terraform before the system one
           export PATH="/home/linuxbrew/.linuxbrew/bin/:${PATH}"
           terraform fmt -check
+          terraform init
           terraform validate
-  get_tf_version:
+
+  lint_and_validat_with_setup_terraform:
+
     runs-on: ubuntu-latest
     steps:
+
       - id: checkout
         name: Checkout code
         uses: actions/checkout@v2
+
       - id: tfversion
         name: Get TF version
         run: echo "::set-output name=version::$(cat .terraform-version)"
-      - id: tf_setup
-        name: Set up Terraform
-        env:
-          TFVERSION: ${{ steps.tfversion.outputs.version }}
-        run: |
-          echo "Terraform version is ${TFVERSION}"
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ steps.tfversion.outputs.version }}
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
