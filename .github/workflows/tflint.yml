@@ -5,6 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      -name: Get Terraform version
-       uses: actions/checkout@v2
-       run: cat ./terraform-version
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get Terraform version
+        run: cat ./terraform-version
