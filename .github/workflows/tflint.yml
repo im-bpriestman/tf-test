@@ -23,10 +23,10 @@ jobs:
           terraform_version: ${{ steps.tfversion.outputs.version }}
 
       - name: Terraform Format
-        run: terraform version && terraform fmt -check
+        run: terraform fmt -check
 
       - name: Terraform Init
-        run: terraform version && terraform init
+        run: terraform init
 
       - name: Terraform Validate
-        run: terraform version && terraform validate
+        run: terraform validate
