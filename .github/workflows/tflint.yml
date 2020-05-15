@@ -11,15 +11,21 @@ jobs:
         run: |
           brew install tfenv
           tfenv install
-          export PATH="/home/linuxbrew/.linuxbrew/bin/terraform:${PATH}"
+          export PATH="/home/linuxbrew/.linuxbrew/bin/:${PATH}"
           terraform version
           echo $PATH
   get_tf_version:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - id: checkout
+        name: Checkout code
         uses: actions/checkout@v2
-      - name: Get TF version
+      - id: tfversion
+        name: Get TF version
+        run: cat .terraform-version
+      - id: tf_setup
+        name: Set up Terraform
+        env:
+          TFVERSION: ${{ steps.tfversion.outputs.output }}
         run: |
-          echo bananas
-          cat .terraform-version
+          echo "Terraform version is ${TFVERSION}"
