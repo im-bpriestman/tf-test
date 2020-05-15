@@ -11,9 +11,12 @@ jobs:
         run: |
           brew install tfenv
           tfenv install
+      - name: Lint and validate
+        run: |
+          # Make sure we find tfenv Terraform before the system one
           export PATH="/home/linuxbrew/.linuxbrew/bin/:${PATH}"
-          terraform version
-          echo $PATH
+          terraform fmt -check
+          terraform validate
   get_tf_version:
     runs-on: ubuntu-latest
     steps:
