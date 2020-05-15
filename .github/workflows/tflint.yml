@@ -1,9 +1,9 @@
 name: Terraform lint and validate
-on: [push]
+on: [pull_request]
 
 jobs:
 
-  lint_and_validate:
+  terraform_lint_and_validate:
 
     runs-on: ubuntu-latest
     steps:
@@ -12,7 +12,7 @@ jobs:
         name: Checkout code
         uses: actions/checkout@v2
 
-        # Use tfenv's .terraform-version file to specify our version of Terraform
+      # Use tfenv's .terraform-version file to specify our version of Terraform
       - id: tfversion
         name: Get TF version
         run: echo "::set-output name=version::$(cat .terraform-version)"
@@ -25,8 +25,10 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
+      # We just want to check that our Terraform is valid
+      # We don't need to authenticate to the real backend
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -backend=false
 
       - name: Terraform Validate
         run: terraform validate
