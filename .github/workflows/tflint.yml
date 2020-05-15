@@ -16,3 +16,10 @@ jobs:
           epxort PATH="/home/linuxbrew/.linuxbrew/bin/terraform:${PATH}"
           terraform version
           echo $PATH
+  get_tf_version:
+    runs_on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get TF version
+        run: cat .terraform-version
