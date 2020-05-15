@@ -3,3 +3,6 @@ resource "null_resource" "terraform-github-actions" {
         value = "This resource was created using GitHub Actions!"
     }
 }
+
+
+
