@@ -2,12 +2,16 @@ name: Terraform lint and validate
 on: [push]
 
 jobs:
-  lint:
+  get_tf_with_tfenv:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get Terraform
-        run: brew install tfenv && tfenv install
+        run: |
+          brew install tfenv
+          tfenv install
       - name: verify tf version
-        run: terraform version
+        run: |
+          terraform version
+          echo $PATH
