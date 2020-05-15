@@ -1,0 +1,10 @@
+name: Terraform lint and validate
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -name: Get Terraform version
+       uses: actions/checkout@v2
+       run: cat ./terraform-version
